@@ -2,18 +2,24 @@ import logger from '../logger';
 let DB = {};
 export default function(db){
     const DB = db;
+    let current_ref = undefined;
     return {
-        key(){return DB.key},
-        root(){return DB.ref()},
+        key(){return DB.ref(current_ref).key},
         select(e){
-            console.log(DB)
-            return DB.ref(e);
+            if(!e)
+                return ;
+            current_ref = e;
+            return this;
         },
-        getAll(ref){
-            return ref.once('value');
+        async getAll(){
+            const res = await DB.ref(current_ref).once('value');
+            let arr = [];
+            for(let key in res.val())
+                arr.push({id:key,...res.val()[key]})
+            return arr;
         },
-        push(ref,item){
-            return ref.push(item)
+        push(item){
+            return DB.ref(current_ref).push(item)
         }
     }
 };

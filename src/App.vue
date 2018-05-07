@@ -15,10 +15,13 @@ export default {
     }
   },
   mounted(){
-    this.ph({
-        name:'Pavel',
-        surname:'Pashkevich'
-      })
+    // this.$nt.select('users').push({
+    //   name:'alex',
+    //   surname:'pashkevich'
+    // })
+    this.Notorious.select('users').getAll().then(res=>{
+      console.log(res)
+    })
   }
 }
 </script>

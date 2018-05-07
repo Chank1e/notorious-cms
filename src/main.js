@@ -8,7 +8,6 @@ let NT = {}
 Notorious.init(NT_CONFIG,'development')
 .then(res=>{
   Vue.use(res.NotoriousVue);
-  console.log(res)
   new Vue({
     el: '#app',
     router,
